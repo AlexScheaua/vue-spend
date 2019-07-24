@@ -1,0 +1,16 @@
+<template>
+    <h1>Balance</h1>
+</template>
+
+<script>
+
+
+export default {
+  name: 'Balance',
+  components: {
+  },
+  methods: {
+    
+  }
+}
+</script>

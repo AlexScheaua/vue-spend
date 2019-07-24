@@ -1,0 +1,40 @@
+{
+  "month": {
+    "week": {
+      "day": {
+        "income": {
+          "id": {
+            "amount": "number",
+            "note": "string",
+            "user": "string"
+          }
+        },
+        "expenses": {
+          "category": {
+            "id": {
+              "amount": "number",
+              "note": "string",
+              "user": "string"
+            }
+          }
+        },
+        "savings": {
+          "id": {
+            "amount": "number",
+            "note": "string",
+            "user": "string"
+          }
+        },
+        "planned-expenses": {
+          "category": {
+            "id": {
+              "amount": "number",
+              "note": "string",
+              "user": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
