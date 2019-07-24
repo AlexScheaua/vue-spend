@@ -61,6 +61,7 @@ export default {
         }
       };
       this.setNewTransaction(dbObject);
+      res => this.form = {};
     }
   }
 };

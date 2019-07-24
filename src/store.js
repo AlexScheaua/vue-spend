@@ -12,8 +12,8 @@ export default new Vuex.Store({
     AUTH_USER(state, userName) {
       state.user = userName;
     },
+    // TO BE MOVED TO BACKEND
     SET_NEW_TRANSACTION(state, data) {
-// TO BE MOVED TO BACKEND
       if(data.category){
         data.category = data.category + "/"
       }else{
