@@ -20,6 +20,12 @@ export default {
       name: ''
     }
   },
+  created(){
+    if(localStorage.userName) {
+      this.name = localStorage.userName;
+      this.validateUser();
+    }
+  },
   methods: {
     ...mapActions([
       'authUser'
@@ -28,6 +34,7 @@ export default {
       if(this.name !== ''){
         this.$router.push({name: 'app'});
         this.authUser(this.name);
+        localStorage.setItem('userName',this.name);
       }
     }
   }

@@ -1,5 +1,5 @@
 <template>
-    <b-nav tabs class="Header d-flex justify-content-between">
+    <b-nav tabs class="header d-flex justify-content-between">
       <div class="d-flex ">
         <b-nav-item class="b-item" @click="$emit('changeComponent', 'Balance')"><font-awesome-icon icon="balance-scale-right" /> Balance</b-nav-item>
         <b-nav-item class="b-item" @click="$emit('changeComponent', 'Transactions')"><font-awesome-icon icon="clipboard" /> Transactions</b-nav-item>
@@ -20,6 +20,10 @@ export default {
 </script>
 
 <style scoped>
+  .header {
+    box-shadow: 0 1px 2px #eee;
+  }
+
   .b-item {
     font-weight: bold;
   }

@@ -1,15 +1,102 @@
 <template>
-  <div>
-    <SelectType />
-  </div>
+  <b-form class="d-flex flex-column align-items-center" @submit.prevent="clickHandler">
+    <!-- Select Type -->
+    <b-form-radio-group
+      id="btn-radios-1"
+      :options="typeOptions"
+      v-model="selectedType"
+      buttons
+      button-variant="outline-primary"
+      name="radios-btn-outline"
+    ></b-form-radio-group>
+    <!-- Select expense -->
+    <b-form-radio-group
+      v-if="selectedType === 'Expense'"
+      id="btn-radios-1"
+      :options="expenseOptions"
+      v-model="selectedExpense"
+      buttons
+      button-variant="outline-primary"
+      name="radios-btn-outline"
+    ></b-form-radio-group>
+    <!-- Form -->
+    <div v-if="selectedExpense || selectedType === 'Income' || selectedType === 'Savings'">
+      <b-form-group
+        v-if="selectedType === 'Expense'"
+        id="input-group-4"
+        label="Category:"
+        label-for="input-4"
+      >
+        <b-form-select id="input-4" v-model="form.category" :options="categories" required></b-form-select>
+      </b-form-group>
+      <b-form-group id="input-group-1" label="Date:" label-for="input-1">
+        <b-form-input id="input-1" v-model="form.date" type="date" required></b-form-input>
+      </b-form-group>
+      <b-form-group id="input-group-2" label="Note:" label-for="input-2">
+        <b-form-input id="input-2" v-model="form.note" type="text" required></b-form-input>
+      </b-form-group>
+      <b-form-group id="input-group-3" label="Amount:" label-for="input-3">
+        <b-form-input id="input-3" v-model="form.amount" type="number" required></b-form-input>
+      </b-form-group>
+      <button class="btn btn-primary">Add</button>
+    </div>
+  </b-form>
 </template>
 
 <script>
-import SelectType from "@/components/addTransactions/SelectType";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "AddTransaction",
-  components: {
-    SelectType
+  created() {
+    this.setDefaults();
+  },
+  data() {
+    return {
+      selectedType: "",
+      typeOptions: [
+        { text: "Expense", value: "Expense" },
+        { text: "Income", value: "Income" },
+        { text: "Savings", value: "Savings" }
+      ],
+      selectedExpense: "",
+      expenseOptions: [
+        { text: "Actual", value: "Actual" },
+        { text: "Planned", value: "Planned" }
+      ],
+      form: {
+        user: this.getUserName()
+      },
+      categories: [
+        { text: "groceries", value: "groceries" },
+        { text: "fuel", value: "fuel" },
+        { text: "clothes", value: "clothes" }
+      ]
+    };
+  },
+  methods: {
+    ...mapGetters(["getUserName"]),
+    ...mapActions(["setNewTransaction"]),
+    setDefaults() {
+      let date = new Date();
+      this.form.date = date.toISOString().substr(0, 10);
+      this.form.user = this.getUserName()
+    },
+    clickHandler() {
+      let dbObject = {
+        date: this.form.date.split("-"),
+        newItem: {
+          type: this.selectedExpense || this.selectedType,
+          category: this.form.category,
+          amount: this.form.amount,
+          note: this.form.note,
+          user: this.form.user
+        }
+      };
+      this.setNewTransaction(dbObject);
+
+      this.form = {};
+      this.setDefaults();
+    }
   }
 };
 </script>

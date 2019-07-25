@@ -5,8 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: '',
-    transactions: {}
+    user: ''
   },
   mutations: {
     AUTH_USER(state, userName) {
@@ -14,13 +13,7 @@ export default new Vuex.Store({
     },
     // TO BE MOVED TO BACKEND
     SET_NEW_TRANSACTION(state, data) {
-      if(data.category){
-        data.category = data.category + "/"
-      }else{
-        data.category = '';
-      }
-      
-      fetch(`https://vspend.firebaseio.com/${data.date[0]}/${data.date[1]}/${data.date[2]}/${data.type}/${data.category}.json`,{
+      fetch(`https://vspend.firebaseio.com/${data.date[0]}/${data.date[1]}/${data.date[2]}/.json`,{
         method: 'POST',
         body: JSON.stringify(data.newItem)
       })

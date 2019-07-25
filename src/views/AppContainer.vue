@@ -1,18 +1,18 @@
 <template>
   <div>
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-around">
       <p class="text-primary">Vspend</p>
       <p class="text-primary">{{getUserName}}</p>
     </div>
     <AppHeader @changeComponent="changeComponent" />
-    <div :is="currentComponent"></div>
+    <div :is="currentComponent" class="content"></div>
   </div>
 </template>
 
 <script>
 import AppHeader from "@/components/AppHeader";
 import Balance from "@/components/Balance";
-import Transactions from "@/components/Transactions";
+import Transactions from "@/components/transactions/Transactions";
 import AddTransaction from "@/components/addTransactions/AddTransaction";
 
 import { mapGetters } from "vuex";
@@ -45,3 +45,11 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+  .content{
+    height: 85vh;
+    overflow-y: scroll;
+  }
+</style>
+
