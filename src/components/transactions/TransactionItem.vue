@@ -4,14 +4,15 @@
     class="item my-1"
     :style="categoryColor[transaction.type]"
   >
-    <div class="user-color" :style="userColor[transaction.user]"></div>
+    <div class="user-color" :style="userColor[transaction.user]" ></div>
     <div
       :class="transaction.user === getUserName ? 'd-flex flex-row-reverse' : 'd-flex'"
       class="items-text justify-content-between"
+      
     >
-      <div class="px-3 d-flex flex-column align-items-center">
+      <div class="px-3 d-flex flex-column align-items-center" >
         <p class="amount m-0">{{transaction.amount}} Lei</p>
-        <p class="category m-0">{{transaction.category || transaction.type}}</p>
+        <p class="category m-0" >{{transaction.category || transaction.type}}</p>
       </div>
       <p class="note m-0 align-self-center">{{transaction.note}}</p>
     </div>
@@ -22,7 +23,7 @@
 import { mapGetters } from "vuex";
 export default {
   name: "TransactionItem",
-  props: ["transaction", "date"],
+  props: ["transaction"],
   data() {
     return {
       userColor: {
@@ -39,6 +40,9 @@ export default {
   },
   computed: {
     ...mapGetters(["getUserName"])
+  },
+  methods: {
+  
   }
 };
 </script>

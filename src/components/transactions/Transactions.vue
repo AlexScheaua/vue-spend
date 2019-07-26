@@ -1,57 +1,68 @@
 <template>
   <div ref="content" class="content d-flex flex-column-reverse align-items-center">
-    <div class="day-list" :key="day" v-for="(dayData, day) in monthData">
+    <div class="day-list d-flex flex-column-reverse" :key="day" v-for="(dayData, day) in monthData">
+      <TransactionItem
+        :key="id"
+        v-for="(transaction,id) in dayData"
+        :transaction="transaction"
+        v-b-modal.edit-modal
+      />
+      <hr class="mb-3 mt-0" />
       <p class="day-categ mt-2 mb-1">{{day}} {{date.split('-')[1]}} {{date.split('-')[0]}}</p>
-      <hr class="mb-3 mt-0">
-      <TransactionItem :key="id" v-for="(transaction,id) in dayData" :transaction="transaction" />
     </div>
     <b-form-group class="m-0" id="input-group-month" label-for="input-month">
-      <b-form-input class="my-2" id="input-month" v-model="date" @change="getMonthData" type="month" required></b-form-input>
+      <b-form-input
+        class="my-2"
+        id="input-month"
+        v-model="transactionDate"
+        @change="setDate(transactionDate),generateMonthData(date)"
+        type="month"
+      ></b-form-input>
     </b-form-group>
+
+    <EditModal />
   </div>
 </template>
 
 <script>
 import TransactionItem from "./TransactionItem";
-import { setTimeout } from "timers";
+import EditModal from "./EditModal";
+import { mapActions, mapGetters, mapState } from "vuex";
 
 export default {
   name: "Transactions",
   components: {
-    TransactionItem
+    TransactionItem,
+    EditModal
   },
-  data() {
-    return {
-      monthData: {},
-      date: ""
-    };
+  computed: {
+    ...mapGetters(['monthData']),
+    ...mapState(['date'])
   },
-  created() {
-    this.getThisMonth();
-    this.getMonthData();
+  data(){
+    return{
+      transactionDate: ''
+    }
+  },
+  mounted() {
+    this.scrollTopNow();
+    this.transactionDate = this.date
+  },
+  watch: {
+    monthData: function(){
+      setTimeout(()=>{this.scrollTopNow()},200);
+    }
   },
   methods: {
-    getThisMonth() {
-      let dateObj = new Date();
-      this.date = dateObj.toISOString().substr(0, 7);
-    },
-    getMonthData() {
-      let year = this.date.split("-")[0];
-      let month = this.date.split("-")[1];
-
-      fetch(`https://vspend.firebaseio.com/${year}/${month}.json`)
-        .then(res => res.json())
-        .then(data => (this.monthData = data))
-        .then(r => {
-          try {
-            this.scrollTopNow();
-          } catch (e) {}
-        });
-    },
-    scrollTopNow() {
+    ...mapActions([
+      'setDate',
+      'generateMonthData'
+    ]),
+    scrollTopNow(id) {
       this.$refs.content.scrollTop = 0;
     }
   }
+  // :style="transaction.type === 'Savings' ? 'display:;' : 'display:none !important'"
 };
 </script>
 

@@ -40,7 +40,7 @@ export default {
   },
   data() {
     return {
-      currentComponent: "Transactions"
+      currentComponent: "Balance"
     };
   }
 };

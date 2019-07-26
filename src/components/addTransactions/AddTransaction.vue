@@ -27,7 +27,7 @@
         label="Category:"
         label-for="input-4"
       >
-        <b-form-select id="input-4" v-model="form.category" :options="categories" required></b-form-select>
+        <b-form-select id="input-4" v-model="form.category" :options="selectedExpense === 'Actual'? actualCategories : plannedCategories" required></b-form-select>
       </b-form-group>
       <b-form-group id="input-group-1" label="Date:" label-for="input-1">
         <b-form-input id="input-1" v-model="form.date" type="date" required></b-form-input>
@@ -44,11 +44,16 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapState } from "vuex";
 export default {
   name: "AddTransaction",
   created() {
     this.setDefaults();
+  },
+  computed:{
+    ...mapState([
+      'date'
+    ])
   },
   data() {
     return {
@@ -66,16 +71,23 @@ export default {
       form: {
         user: this.getUserName()
       },
-      categories: [
-        { text: "groceries", value: "groceries" },
-        { text: "fuel", value: "fuel" },
-        { text: "clothes", value: "clothes" }
-      ]
+      actualCategories: [
+        { text: "Shopping", value: "shopping" },
+        { text: "Fuel", value: "fuel" },
+        { text: "Clothes", value: "clothes" },
+        { text: "Rent", value: "rent" },
+        { text: "Bill", value: "bill" }
+
+      ],
+      plannedCategories: [
+        { text: "Rent", value: "rent" },
+        { text: "Bill", value: "bill" }
+      ],
     };
   },
   methods: {
     ...mapGetters(["getUserName"]),
-    ...mapActions(["setNewTransaction"]),
+    ...mapActions(["setNewTransaction", 'generateMonthData']),
     setDefaults() {
       let date = new Date();
       this.form.date = date.toISOString().substr(0, 10);
@@ -92,7 +104,8 @@ export default {
           user: this.form.user
         }
       };
-      this.setNewTransaction(dbObject);
+      this.setNewTransaction(dbObject)
+      .then(res=>{this.generateMonthData(this.date)})
 
       this.form = {};
       this.setDefaults();
