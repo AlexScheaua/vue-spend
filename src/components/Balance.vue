@@ -1,14 +1,22 @@
 <template>
+
   <div>
-    <!-- <div :key="id" v-for="(type, id) in balance">
-      <h1>{{id}}: {{type.amount}}Lei</h1>
-      <p :key="id" v-for="(categ,id) in type" v-if="id !== 'amount'">{{id}}: {{categ}}</p>
-    </div> -->
-    <h1 v-if="balance.Income">Balance: {{balance.Income.amount - balance.Actual.amount - balance.Savings.amount}}</h1>
-    <p v-if="balance.Income">Income: {{balance.Income.amount}}</p>
-    <p v-if="balance.Actual">Actual: {{balance.Actual.amount}}</p>
-    <p v-if="balance.Savings">Savings: {{balance.Savings.amount}}</p>
-    <p v-if="balance.Planned">Planned: {{balance.Planned.amount}}</p>
+    <div class="d-flex justify-content-center">
+      <b-progress v-if="balance.Income" class="mt-2 w-90" :max="balance.Income.amount" show-value>
+        <b-progress-bar striped :value="balance.Actual.amount" variant="danger"></b-progress-bar>
+        <b-progress-bar striped :value="balance.Savings.amount" variant="info"></b-progress-bar>
+        <b-progress-bar :value="balance.Income.amount - balance.Actual.amount - balance.Savings.amount" variant="success"></b-progress-bar>
+      </b-progress>
+    </div>
+
+    <h1 v-if="balance.Income">{{balance.Income.amount - balance.Actual.amount - balance.Savings.amount}} Lei</h1>
+    <p v-if="balance.Income">Income: {{balance.Income.amount}} Lei</p>
+    <p v-b-toggle.categ-clps v-if="balance.Actual">Actual: -{{balance.Actual.amount}} Lei</p>
+    <b-collapse id="categ-clps">
+      <p class="categ-item" :key="categ" v-for="(categ, key) in balance.Actual" v-show="key !== 'amount'">{{key}}: -{{categ}} Lei</p>
+    </b-collapse>
+    <p v-if="balance.Savings">Savings: -{{balance.Savings.amount}} Lei</p>
+    <p v-if="balance.Planned">Planned: {{balance.Planned.amount}} Lei</p>
   </div>
 </template>
 
@@ -57,3 +65,14 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+  .categ-item {
+    margin: 2px 0 2px 10px;
+  }
+
+  .w-90 {
+    width: 90%;
+  }
+</style>
+

@@ -1,0 +1,135 @@
+{
+  "2019" : {
+    "06" : {
+      "04" : {
+        "-Lkco6R91gePI8aOM4u2" : {
+          "amount" : "90",
+          "category" : "groceries",
+          "note" : "vodka",
+          "type" : "Actual",
+          "user" : "Alex"
+        }
+      }
+    },
+    "07" : {
+      "22" : {
+        "-Lkc1Y9j5nY_9lg9TTdV" : {
+          "amount" : "300",
+          "category" : "clothes",
+          "note" : "shoes",
+          "type" : "Planned",
+          "user" : "Andre"
+        }
+      },
+      "24" : {
+        "-Lkc1SriML-VMY9l1kNo" : {
+          "amount" : "2500",
+          "note" : "salariu",
+          "type" : "Income",
+          "user" : "Andre"
+        }
+      },
+      "25" : {
+        "-Lkc-SEfHga93Vq2vanM" : {
+          "amount" : "150",
+          "category" : "fuel",
+          "note" : "gas",
+          "type" : "Actual",
+          "user" : "Alex"
+        },
+        "-Lkc1NqxGdQGwB6rUNQP" : {
+          "amount" : "200",
+          "category" : "groceries",
+          "note" : "stuff",
+          "type" : "Actual",
+          "user" : "Alex"
+        },
+        "-Lkd-NreaFC544kv3P1p" : {
+          "amount" : "180",
+          "category" : "groceries",
+          "note" : "Kaufland",
+          "type" : "Actual",
+          "user" : "Alex"
+        },
+        "-Lkd-QUncROsg6ShhA_Z" : {
+          "amount" : "1600",
+          "category" : "groceries",
+          "note" : "Rent",
+          "type" : "Planned",
+          "user" : "Alex"
+        },
+        "-Lkd-TxuhH1NVckZ91tP" : {
+          "amount" : "270",
+          "category" : "clothes",
+          "note" : "Intretinere",
+          "type" : "Planned",
+          "user" : "Alex"
+        },
+        "-LkhNOotr2CfmkEQV8Vb" : {
+          "amount" : "65",
+          "category" : "bill",
+          "note" : "Net",
+          "type" : "Actual",
+          "user" : "Alex"
+        }
+      },
+      "26" : {
+        "-LkcrOR_odFt4YviY3Bp" : {
+          "amount" : "2500",
+          "note" : "salary",
+          "type" : "Income",
+          "user" : "Alex"
+        },
+        "-LkcrR-JlZHU3pDYPN6u" : {
+          "amount" : "500",
+          "note" : " ",
+          "type" : "Savings",
+          "user" : "Alex"
+        },
+        "-LkhKO9imvdLJm22XRe2" : {
+          "amount" : "30",
+          "category" : "shopping",
+          "note" : "mega",
+          "type" : "Actual",
+          "user" : "Alex"
+        },
+        "-Lkhy2BrQIkvpgjWIWfd" : {
+          "amount" : "300",
+          "category" : "fuel",
+          "note" : "gas",
+          "type" : "Actual",
+          "user" : "Alex"
+        },
+        "-LkiKEhBFkU3VCzjYuQy" : {
+          "amount" : "275",
+          "note" : "Party",
+          "type" : "Savings",
+          "user" : "Alex"
+        },
+        "-LkiLRlsCIrr6nx_bkyS" : {
+          "amount" : "100",
+          "category" : "clothes",
+          "note" : "manusi",
+          "type" : "Actual",
+          "user" : "Alex"
+        },
+        "-LkiMpHDDVd1MWJJ-Ys1" : {
+          "amount" : "25",
+          "category" : "shopping",
+          "note" : "bere",
+          "type" : "Actual",
+          "user" : "Alex"
+        }
+      },
+      "27" : {
+        "-LkiAD2F8jSfKGNPMbjJ" : {
+          "amount" : "1600",
+          "category" : "rent",
+          "note" : "Rent",
+          "type" : "Actual",
+          "user" : "Alex"
+        }
+      }
+    }
+  }
+}

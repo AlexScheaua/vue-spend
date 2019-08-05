@@ -5,9 +5,11 @@
         :key="id"
         v-for="(transaction,id) in dayData"
         :transaction="transaction"
+        :id="id"
+        :day="[day,date.split('-')[1],date.split('-')[0]]"
         v-b-modal.edit-modal
+        @modal="setModalData"
       />
-      <hr class="mb-3 mt-0" />
       <p class="day-categ mt-2 mb-1">{{day}} {{date.split('-')[1]}} {{date.split('-')[0]}}</p>
     </div>
     <b-form-group class="m-0" id="input-group-month" label-for="input-month">
@@ -20,7 +22,7 @@
       ></b-form-input>
     </b-form-group>
 
-    <EditModal />
+    <EditModal :transaction="this.modalData"/>
   </div>
 </template>
 
@@ -41,7 +43,8 @@ export default {
   },
   data(){
     return{
-      transactionDate: ''
+      transactionDate: '',
+      modalData: ''
     }
   },
   mounted() {
@@ -60,9 +63,11 @@ export default {
     ]),
     scrollTopNow(id) {
       this.$refs.content.scrollTop = 0;
+    },
+    setModalData(data){
+      this.modalData = data;
     }
   }
-  // :style="transaction.type === 'Savings' ? 'display:;' : 'display:none !important'"
 };
 </script>
 
@@ -86,6 +91,6 @@ export default {
   width: 100%;
   padding: 0 10px;
   border-radius: 10px;
-  background: #eee;
+  background: #eeeeee55;
 }
 </style>

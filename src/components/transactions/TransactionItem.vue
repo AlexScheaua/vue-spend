@@ -1,17 +1,16 @@
 <template>
   <div
     :class="transaction.user === getUserName ? 'd-flex flex-row-reverse' : 'd-flex'"
-    class="item my-1"
-    :style="categoryColor[transaction.type]"
+    class="item my-05"
+    @click="$emit('modal',[transaction,id,day])"
   >
     <div class="user-color" :style="userColor[transaction.user]" ></div>
     <div
       :class="transaction.user === getUserName ? 'd-flex flex-row-reverse' : 'd-flex'"
       class="items-text justify-content-between"
-      
     >
       <div class="px-3 d-flex flex-column align-items-center" >
-        <p class="amount m-0">{{transaction.amount}} Lei</p>
+        <p class="amount m-0" :style="categoryColor[transaction.type]">{{transaction.amount}} Lei</p>
         <p class="category m-0" >{{transaction.category || transaction.type}}</p>
       </div>
       <p class="note m-0 align-self-center">{{transaction.note}}</p>
@@ -23,18 +22,18 @@
 import { mapGetters } from "vuex";
 export default {
   name: "TransactionItem",
-  props: ["transaction"],
+  props: ["transaction","id","day"],
   data() {
     return {
       userColor: {
-        Andre: "background: #680084",
-        Alex: "background: #ff2800"
+        Andre: "background: #680084bb",
+        Alex: "background: #0041ffbb"
       },
       categoryColor: {
-        Actual: "background: #ff000030",
-        Planned: "background: #ffde0047",
-        Income: "background: #20c95240",
-        Savings: "background: #0056ec3d"
+        Actual: "color: var(--danger)",
+        Planned: "color: var(--warning)",
+        Income: "color: var(--success)",
+        Savings: "color: var(--info)"
       }
     };
   },
@@ -55,19 +54,26 @@ export default {
 }
 
 .item {
-  border-radius: 5px;
-  box-shadow: 0 1px 5px #777;
+  line-height: 2;
+  border-radius: 3px;
+  background: #fff;
+  transition-duration: .3s;
 }
 
 .item:hover {
-  background: #11111133 !important;
+  background: #eee;
 }
 
 .items-text {
-  width: 90%;
+  width: 92%;
 }
 
 .category {
-  font-size: 10px;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.my-05 {
+  margin: 0.12rem 0;
 }
 </style>

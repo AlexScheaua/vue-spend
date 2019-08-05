@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="d-flex justify-content-around">
-      <p class="text-primary">Vspend</p>
-      <p class="text-primary">{{getUserName}}</p>
+    <div class="top-header d-flex justify-content-around align-items-center">
+      <p class="text-dark">Vspend</p>
+      <p class="text-dark">{{getUserName}}</p>
     </div>
     <AppHeader @changeComponent="changeComponent" />
     <div :is="currentComponent" class="content"></div>
@@ -47,9 +47,16 @@ export default {
 </script>
 
 <style scoped>
+  .top-header {
+    height: 40px;
+  }
   .content{
     height: 85vh;
     overflow-y: scroll;
+  }
+
+  .text-dark {
+    margin: 0;
   }
 </style>
 

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import database from './vspend-export.json'
 
 Vue.use(Vuex)
 
@@ -20,13 +21,22 @@ export default new Vuex.Store({
         body: JSON.stringify(data.newItem)
       })
     },
+    EDIT_TRANSACTION(state, data){
+      state.monthData[data[0][2]][data[0][3]] = data[1]; //local
+    },
+    DELETE_TRANSACTION(state, link){
+      delete state.monthData[link[2]][link[3]] //local
+    },
     GENERATE_MONTH_DATA(state, date){
       let year = date.split("-")[0];
       let month = date.split("-")[1];
 
-      fetch(`https://vspend.firebaseio.com/${year}/${month}.json`)
-        .then(res => res.json())
-        .then(data => state.monthData = data);
+      state.monthData = database[year][month]
+      
+
+      // fetch(`https://vspend.firebaseio.com/${year}/${month}.json`)
+      //   .then(res => res.json())
+      //   .then(data => state.monthData = data);
     },
     SET_DATE(state, data){
       state.date = data;
@@ -38,6 +48,12 @@ export default new Vuex.Store({
     },
     setNewTransaction({ commit }, data) {
       commit('SET_NEW_TRANSACTION', data)
+    },
+    editTransaction({commit}, link ,data){
+      commit('EDIT_TRANSACTION', link, data)
+    },
+    deleteTransaction({commit}, link){
+      commit('DELETE_TRANSACTION', link)
     },
     generateMonthData({commit},data){
       commit('GENERATE_MONTH_DATA', data)
