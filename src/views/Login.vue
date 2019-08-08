@@ -1,8 +1,17 @@
 <template>
-  <b-container fluid class="login-container d-flex flex-column justify-content-center align-items-center">
+  <b-container
+    fluid
+    class="login-container d-flex flex-column justify-content-center align-items-center"
+  >
     <b-row class="mb-1">
       <b-col cols="12">
-        <b-form-input v-model="name" placeholder="Enter your name"></b-form-input>
+        <b-form-input v-model="credentials.name" :state='login' placeholder="Enter your name"></b-form-input>
+        <b-form-input
+          v-model="credentials.collection"
+          type="password"
+          :state='login'
+          placeholder="Enter your code"
+        ></b-form-input>
       </b-col>
     </b-row>
     <b-row class="mt-1">
@@ -12,29 +21,45 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import { mapState, mapActions } from "vuex";
 export default {
-  name: 'Login',
-  data(){
-    return {
-      name: ''
-    }
+  name: "Login",
+  computed: {
+    ...mapState([
+      'date'
+      ])
   },
-  created(){
-    if(localStorage.userName) {
-      this.name = localStorage.userName;
+  data() {
+    return {
+      credentials: {
+        name: "",
+        collection: ""
+      },
+      login: ''
+    };
+  },
+  created() {
+    if (localStorage.vSpendUserName) {
+      this.credentials.name = localStorage.vSpendUserName;
+      this.credentials.collection = localStorage.vSpendCollection;
       this.validateUser();
     }
   },
   methods: {
-    ...mapActions([
-      'authUser'
-    ]),
-    validateUser(){
-      if(this.name !== ''){
-        this.$router.push({name: 'app'});
-        this.authUser(this.name);
-        localStorage.setItem('userName',this.name);
+    ...mapActions(['authUser', 'generateMonthData']),
+    validateUser() {
+      if (this.credentials.name !== "" && this.credentials.collection !== "") {
+        this.authUser(this.credentials).then(res => {
+          this.login = res;
+          if (res) {
+            this.generateMonthData(this.date);
+            this.$router.push({ name: "app" });
+            localStorage.setItem("vSpendUserName", this.credentials.name);
+            localStorage.setItem("vSpendCollection",this.credentials.collection);
+          } 
+        });
+      } else {
+        this.login = false;
       }
     }
   }
@@ -46,4 +71,6 @@ export default {
   height: 100vh;
   background: #eee;
 }
+
+
 </style>

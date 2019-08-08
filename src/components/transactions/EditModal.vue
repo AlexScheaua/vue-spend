@@ -16,14 +16,14 @@
       <b-form-input id="input-3" v-model="amount" type="number" required></b-form-input>
     </b-form-group>
     <template slot="modal-footer" slot-scope="{ ok, cancel }">
-      <b-button variant="outline-success" @click="saveTransaction(); ok()"><font-awesome-icon icon="check" /></b-button>
+      <b-button variant="outline-success" @click="saveTransaction(); if(amount) {ok()};"><font-awesome-icon icon="check" /></b-button>
       <b-button variant="outline-danger" @click="removeTransaction(); cancel()"><font-awesome-icon icon="trash-alt" /></b-button>
     </template>
   </b-modal>
 </template>
 
 <script>
-import{mapActions} from 'vuex'
+import{ mapActions, mapGetters } from 'vuex'
 
 export default {
   name: "EditModal",
@@ -33,14 +33,19 @@ export default {
       'editTransaction',
       'deleteTransaction'
     ]),
+    ...mapGetters([
+      'getUserName'
+    ]),
     saveTransaction(){
+      if(!this.amount) return;
       let link = [this.transaction[2][2], this.transaction[2][1], this.transaction[2][0], this.transaction[1]];
       let editedItem = {
         type: this.type,
         category: this.category,
         note: this.note,
         amount: this.amount,
-        user: this.user
+        user: this.user,
+        editedBy: this.getUserName()
       }
 
       this.editTransaction([link, editedItem])

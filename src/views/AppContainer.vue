@@ -47,16 +47,17 @@ export default {
 </script>
 
 <style scoped>
-  .top-header {
-    height: 40px;
-  }
-  .content{
-    height: 85vh;
-    overflow-y: scroll;
-  }
+.top-header {
+  height: 40px;
+}
+.content {
+  height: 85vh;
+  overflow-y: scroll;
+  background: #eeeeee55;
+}
 
-  .text-dark {
-    margin: 0;
-  }
+.text-dark {
+  margin: 0;
+}
 </style>
 

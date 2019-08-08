@@ -4,21 +4,15 @@
   </div>
 </template>
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "App",
-  computed: {
-    ...mapState([
-      'date'
-      ])
-  },
   created() {
     this.getThisMonth();
-    this.generateMonthData(this.date);
   },
   methods: {
-    ...mapActions(["generateMonthData", "setDate"]),
+    ...mapActions(["setDate"]),
     getThisMonth() {
       let dateObj = new Date();
       this.setDate(dateObj.toISOString().substr(0, 7));

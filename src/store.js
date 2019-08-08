@@ -1,73 +1,117 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import database from './vspend-export.json'
+import Api from './assets/Api'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: '',
-    monthData:{},
-    date: ''
+    user: {
+      name: ''
+    },
+    monthData: {},
+    date: '',
+    categories: [
+      { text: "Shopping", value: "shopping" },
+      { text: "Fuel", value: "fuel" },
+      { text: "Clothes", value: "clothes" },
+      { text: "Rent", value: "rent" },
+      { text: "Bills", value: "bills" },
+      { text: "Gifts", value: "gifts" },
+      { text: "General", value: "general" },
+      { text: "Travel", value: "travel" },
+      { text: "Owed", value: "owed" },
+      { text: "Sport", value: "sport" },
+      { text: "Going out", value: "goingOut" },
+      { text: "Eating out", value: "eatingOut" },
+      { text: "Holidays", value: "holidays" },
+      { text: "Health", value: "health" },
+    ],
+    categoryColor: {
+      Actual: "color: var(--danger)",
+      Planned: "color: var(--warning)",
+      Income: "color: var(--success)",
+      Savings: "color: var(--info)"
+    },
+    userColor: {
+      Andreea: "background: #680084bb",
+      Alex: "background: #0041ffbb"
+    }
   },
   mutations: {
-    AUTH_USER(state, userName) {
-      state.user = userName;
-    },
-    // TO BE MOVED TO BACKEND
+
     SET_NEW_TRANSACTION(state, data) {
-      fetch(`https://vspend.firebaseio.com/${data.date[0]}/${data.date[1]}/${data.date[2]}/.json`,{
-        method: 'POST',
-        body: JSON.stringify(data.newItem)
-      })
+      Api.addTransaction(data);
     },
-    EDIT_TRANSACTION(state, data){
-      state.monthData[data[0][2]][data[0][3]] = data[1]; //local
+    EDIT_TRANSACTION(state, data) {
+      Api.editTransaction(data[0],data[1])
+        .then(state.monthData[data[0][2]][data[0][3]] = data[1])//local
     },
-    DELETE_TRANSACTION(state, link){
-      delete state.monthData[link[2]][link[3]] //local
+    DELETE_TRANSACTION(state, link) {
+      Api.deleteTransaction(link)
+        .then(delete state.monthData[link[2]][link[3]])//local
+        
     },
-    GENERATE_MONTH_DATA(state, date){
+    GENERATE_MONTH_DATA(state, date) {
       let year = date.split("-")[0];
       let month = date.split("-")[1];
-
-      state.monthData = database[year][month]
       
-
-      // fetch(`https://vspend.firebaseio.com/${year}/${month}.json`)
-      //   .then(res => res.json())
-      //   .then(data => state.monthData = data);
+      Api.getMonth(year, month)
+        .then(data => state.monthData = data);
     },
-    SET_DATE(state, data){
+    SET_DATE(state, data) {
       state.date = data;
     }
   },
   actions: {
-    authUser({ commit }, userName) {
-      commit('AUTH_USER', userName);
+    authUser({commit} ,credentials) {
+      return Api.authUser(credentials)
+        .then((password) => {
+          if (credentials.collection === password) {
+            return Api.getLink(credentials)
+              .then(() => {
+                this.state.user.name = credentials.name;
+                
+                return true;
+              })
+          } else if(!password){
+            return false;
+          } else {
+            return false;
+          }
+        })
     },
     setNewTransaction({ commit }, data) {
       commit('SET_NEW_TRANSACTION', data)
     },
-    editTransaction({commit}, link ,data){
+    editTransaction({ commit }, link, data) {
       commit('EDIT_TRANSACTION', link, data)
     },
-    deleteTransaction({commit}, link){
+    deleteTransaction({ commit }, link) {
       commit('DELETE_TRANSACTION', link)
     },
-    generateMonthData({commit},data){
+    generateMonthData({ commit }, data) {
       commit('GENERATE_MONTH_DATA', data)
     },
-    setDate({commit}, data){
+    setDate({ commit }, data) {
       commit('SET_DATE', data)
     }
   },
   getters: {
     getUserName(state) {
-      return state.user;
+      return state.user.name;
     },
-    monthData(state){
+    monthData(state) {
       return state.monthData;
+    },
+    getUserColor(state) {
+      return state.userColor;
+    },
+    getCategoryColor(state) {
+      return state.categoryColor;
+    },
+    getCategories(state) {
+      return state.categories;
     }
   }
 })

@@ -29,7 +29,7 @@
         label="Category:"
         label-for="input-4"
       >
-        <b-form-select id="input-4" v-model="form.category" :options="selectedExpense === 'Actual'? actualCategories : plannedCategories" required></b-form-select>
+        <b-form-select id="input-4" v-model="form.category" :options="getCategories" required></b-form-select>
       </b-form-group>
       <b-form-group id="input-group-1" label="Date:" label-for="input-1">
         <b-form-input id="input-1" v-model="form.date" type="date" required></b-form-input>
@@ -55,6 +55,9 @@ export default {
   computed:{
     ...mapState([
       'date'
+    ]),
+    ...mapGetters([
+      'getCategories'
     ])
   },
   data() {
@@ -72,19 +75,7 @@ export default {
       ],
       form: {
         user: this.getUserName()
-      },
-      actualCategories: [
-        { text: "Shopping", value: "shopping" },
-        { text: "Fuel", value: "fuel" },
-        { text: "Clothes", value: "clothes" },
-        { text: "Rent", value: "rent" },
-        { text: "Bill", value: "bill" }
-
-      ],
-      plannedCategories: [
-        { text: "Rent", value: "rent" },
-        { text: "Bill", value: "bill" }
-      ],
+      }
     };
   },
   methods: {
