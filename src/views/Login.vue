@@ -49,9 +49,11 @@ export default {
     ...mapActions(['authUser', 'generateMonthData']),
     validateUser() {
       if (this.credentials.name !== "" && this.credentials.collection !== "") {
-        this.authUser(this.credentials).then(res => {
-          this.login = res;
-          if (res) {
+        this.authUser(this.credentials)
+        .then(collection => {
+          if (collection) {
+            this.login = true;
+
             this.generateMonthData(this.date);
             this.$router.push({ name: "app" });
             localStorage.setItem("vSpendUserName", this.credentials.name);

@@ -64,21 +64,12 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    authUser({commit} ,credentials) {
+    authUser({commit}, credentials) {
       return Api.authUser(credentials)
-        .then((password) => {
-          if (credentials.collection === password) {
-            return Api.getLink(credentials)
-              .then(() => {
-                this.state.user.name = credentials.name;
-                
-                return true;
-              })
-          } else if(!password){
-            return false;
-          } else {
-            return false;
-          }
+        .then((collection) => {
+          this.state.user.name = credentials.name;
+          this.state.user.collection = collection;
+          return collection;
         })
     },
     setNewTransaction({ commit }, data) {

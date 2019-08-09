@@ -3,14 +3,15 @@ export default {
   collection: '',
 
   authUser(credentials){
-    return fetch(`${this.url}/users/${credentials.name}/collection.json`)
-      .then(res => res.json())
-  },
-
-  getLink(credentials){
-    return fetch(`${this.url}/users/${credentials.name}/link.json`)
-      .then(res => res.json())
-      .then(data => this.collection = data)
+    return fetch('/auth', {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(credentials)
+    })
+    .then(res => res.json())
+    .then(data => this.collection = data)
   },
 
   getMonth(year, month) {
