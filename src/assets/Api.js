@@ -11,6 +11,7 @@ export default {
       body: JSON.stringify(credentials)
     })
     .then(res => res.json())
+    .then(data => this.collection = data)
   },
 
   getMonth(year, month) {
