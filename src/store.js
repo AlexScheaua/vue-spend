@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Api from './assets/Api'
+import database from './vspend-export.json'
 
 Vue.use(Vuex)
 
@@ -58,6 +59,8 @@ export default new Vuex.Store({
       
       Api.getMonth(year, month)
         .then(data => state.monthData = data);
+      // DEV
+      // state.monthData = database[year][month];
     },
     SET_DATE(state, data) {
       state.date = data;
@@ -71,6 +74,10 @@ export default new Vuex.Store({
           this.state.user.collection = collection;
           return collection;
         })
+      // DEV
+      // this.state.user.name = credentials.name;
+      // this.state.user.collection = 'alex_andre';
+      // return this.state.user.collection;
     },
     setNewTransaction({ commit }, data) {
       commit('SET_NEW_TRANSACTION', data)
