@@ -11,7 +11,7 @@
         <b-progress-bar striped :value="balance.Actual.amount" variant="danger"></b-progress-bar>
         <b-progress-bar :value="balance.Income.amount - balance.Actual.amount" variant="success"></b-progress-bar>
       </b-progress>
-      <b-progress v-if="balance.Income" class="mt-2 w-90" :max="balance.Income.amount" show-value>
+      <b-progress v-if="balance.Savings" class="mt-2 w-90" :max="balance.Income.amount" show-value>
         <b-progress-bar :value="balance.Savings.amount" variant="info"></b-progress-bar>
       </b-progress>
     </div>
@@ -53,7 +53,7 @@
       <b-collapse id="planned-clps">
         <div
           v-for="(price, categ) in balance.Planned"
-          :style="key === 'amount'? 'display: none !important' : ''"
+          :style="categ === 'amount'? 'display: none !important' : ''"
           class="categ-item d-flex justify-content-between"
           :key="categ+price"
         >

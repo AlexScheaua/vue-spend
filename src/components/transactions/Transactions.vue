@@ -1,11 +1,17 @@
 <template>
   <div ref="content" class="content d-flex align-items-center flex-column">
-    <MonthPicker />
+    <div class="w-100 d-flex justify-content-center">
+      <MonthPicker />
+      <div class="filter d-flex justify-content-center align-items-center">
+        <font-awesome-icon icon="filter" v-b-modal.filter-modal class="filter-icon"/>
+      </div>
+    </div>
     <div class="w-100 d-flex flex-column-reverse">
       <div class="day-list d-flex flex-column-reverse" :key="day" v-for="(dayData, day) in monthData">
         <TransactionItem
           :key="id"
           v-for="(transaction,id) in dayData"
+          :style="transaction.type === filterBy || filterBy === ''? '' : 'display: none !important'"
           :transaction="transaction"
           :id="id"
           :day="[day,date.split('-')[1],date.split('-')[0]]"
@@ -20,6 +26,21 @@
       <h2 class="text-center text-secondary">No data this month</h2>
     </div>
     <EditModal :transaction="this.modalData" />
+    
+    <b-modal id="filter-modal" title="Filter">
+       <b-form-group label="Filter by">
+         <b-form-radio-group
+          id="filter-radios"
+          v-model="filterBy"
+          :options="filterOptions"
+          stacked
+          name="radios-btn-default"
+        ></b-form-radio-group>
+      </b-form-group>
+      <template slot="modal-footer" slot-scope="{ ok }">
+        <b-button variant="outline-dark" @click="ok();">ok</b-button>
+      </template>
+    </b-modal>
   </div>
 </template>
 
@@ -42,7 +63,15 @@ export default {
   },
   data() {
     return {
-      modalData: ""
+      modalData: "",
+      filterBy: '',
+      filterOptions: [
+        {text: 'No Filter', value: ''},
+        {text: 'Actual expenses', value: 'Actual'},
+        {text: 'Planned expenses', value: 'Planned'},
+        {text: 'Income', value: 'Income'},
+        {text: 'Savings', value: 'Savings'}
+      ]
     };
   },
   mounted() {
@@ -72,6 +101,23 @@ export default {
   border-radius: 10px;
 }
 
+.filter {
+  height: 60px;
+  width: 60px;
+}
+
+.filter-icon {
+  padding: 10px;
+  width: 43px;
+  height: 43px;
+  border-radius: 3px;
+  background: #fff;
+  border: 1px solid #e0e0e0; 
+}
+.filter-icon:hover {
+  background: #ddd;
+}
+
 .day-categ {
   padding: 5px 10px;
   border-radius: 4px;
@@ -83,4 +129,11 @@ export default {
   padding: 0 10px;
   border-radius: 10px;
 }
+
+</style>
+
+<style>
+  .custom-radio{
+    margin: 10px 20px;
+  }
 </style>
