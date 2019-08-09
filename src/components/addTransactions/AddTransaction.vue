@@ -42,11 +42,18 @@
       </b-form-group>
       <button class="btn btn-outline-dark w-100">Add</button>
     </div>
+
+    <b-modal id="transaction-success">
+      Transaction Added...
+      <div slot="modal-footer"></div>
+    </b-modal>
+
   </b-form>
 </template>
 
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
+import { setTimeout } from 'timers';
 export default {
   name: "AddTransaction",
   created() {
@@ -99,6 +106,10 @@ export default {
       };
       this.setNewTransaction(dbObject)
       .then(res=>{this.generateMonthData(this.date)})
+      .then(()=>{
+        this.$bvModal.show('transaction-success')
+        setTimeout(()=>{this.$bvModal.hide('transaction-success')}, 800)
+      })
 
       this.form = {};
       this.setDefaults();
