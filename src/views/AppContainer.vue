@@ -51,8 +51,9 @@ export default {
   height: 40px;
 }
 .content {
-  height: 85vh;
+  /* height: 85vh;
   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch; */
   background: #eeeeee55;
 }
 

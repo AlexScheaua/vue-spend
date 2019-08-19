@@ -41,7 +41,7 @@ export default {
 }
 
 .item {
-  line-height: 2;
+  line-height: 2rem;
   border-radius: 3px;
   background: #fff;
   transition-duration: .3s;
