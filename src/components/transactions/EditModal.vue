@@ -1,7 +1,7 @@
 <template>
   <b-modal id="edit-modal" title="Edit transaction">
     <b-form-radio-group
-      id="btn-radios-1"
+      id="select-type"
       class="my-1 w-100"
       :options="typeOptions"
       v-model="type"
@@ -9,6 +9,14 @@
       button-variant="outline-dark"
       name="radios-btn-outline"
     ></b-form-radio-group>
+    <b-form-group
+        v-if="type === 'Actual' || type === 'Planned'"
+        id="select-category"
+        label="Category:"
+        label-for="input-4"
+      >
+        <b-form-select id="input-4" v-model="category" :options="getCategories" required></b-form-select>
+      </b-form-group>
     <b-form-group id="input-group-2" label="Note:" label-for="input-2">
       <b-form-input id="input-2" v-model="note" type="text" required></b-form-input>
     </b-form-group>
@@ -28,6 +36,26 @@ import{ mapActions, mapGetters } from 'vuex'
 export default {
   name: "EditModal",
   props: ["transaction"],
+  data() {
+    return {
+      type: "",
+      category: "",
+      note: "",
+      amount: "",
+      user: "",
+      typeOptions: [
+        { text: "Actual", value: "Actual" },
+        { text: "Planned", value: "Planned" },
+        { text: "Income", value: "Income" },
+        { text: "Savings", value: "Savings" }
+      ]
+    };
+  },
+  computed: {
+    ...mapGetters([
+      'getCategories'
+    ])
+  },
   methods: {
     ...mapActions([
       'editTransaction',
@@ -39,6 +67,11 @@ export default {
     saveTransaction(){
       if(!this.amount) return;
       let link = [this.transaction[2][2], this.transaction[2][1], this.transaction[2][0], this.transaction[1]];
+
+      if(this.type === 'Savings' || this.type === 'Income'){
+        this.category = '';
+      }
+
       let editedItem = {
         type: this.type,
         category: this.category,
@@ -64,21 +97,6 @@ export default {
       this.amount = this.transaction[0].amount;
       this.user = this.transaction[0].user;
     }
-  },
-  data() {
-    return {
-      type: "",
-      category: "",
-      note: "",
-      amount: "",
-      user: "",
-      typeOptions: [
-        { text: "Actual", value: "Actual" },
-        { text: "Planned", value: "Planned" },
-        { text: "Income", value: "Income" },
-        { text: "Savings", value: "Savings" }
-      ]
-    };
   }
 };
 </script>

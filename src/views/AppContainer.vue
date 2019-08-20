@@ -5,7 +5,7 @@
       <p class="text-dark">{{getUserName}}</p>
     </div>
     <AppHeader @changeComponent="changeComponent" />
-    <div :is="currentComponent" class="content"></div>
+    <div :is="currentComponent" class="content" :totalSavings="totalSavings"></div>
   </div>
 </template>
 
@@ -14,6 +14,7 @@ import AppHeader from "@/components/AppHeader";
 import Balance from "@/components/Balance";
 import Transactions from "@/components/transactions/Transactions";
 import AddTransaction from "@/components/addTransactions/AddTransaction";
+import Api from '@/assets/Api'
 
 import { mapGetters } from "vuex";
 
@@ -31,7 +32,12 @@ export default {
   created() {
     if (!this.getUserName) {
       this.$router.push({ name: "login" });
-    }
+    };
+    /**
+     * @TODO add this to vuex
+     */
+    Api.getTotalSavings()
+      .then(data => this.totalSavings = data)
   },
   methods: {
     changeComponent(component) {
@@ -40,7 +46,8 @@ export default {
   },
   data() {
     return {
-      currentComponent: "Balance"
+      currentComponent: "Balance",
+      totalSavings: 0
     };
   }
 };

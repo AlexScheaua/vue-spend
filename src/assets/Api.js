@@ -1,6 +1,6 @@
 export default {
   url: 'https://vspend.firebaseio.com',
-  collection: '',
+  collection: 'alex_andre',
 
   authUser(credentials){
     return fetch('/auth', {
@@ -12,6 +12,17 @@ export default {
     })
     .then(res => res.json())
     .then(data => this.collection = data)
+  },
+
+  getTotalSavings(){
+    return fetch(`/savings/${this.collection}`,{
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: ''
+    })
+    .then(res => res.json())
   },
 
   getMonth(year, month) {

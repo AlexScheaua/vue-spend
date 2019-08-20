@@ -9,10 +9,11 @@
     <div class="w-100 d-flex justify-content-center flex-column align-items-center">
       <b-progress v-if="balance.Income" class="mt-2 w-90" :max="balance.Income.amount" show-value>
         <b-progress-bar striped :value="balance.Actual.amount" variant="danger"></b-progress-bar>
-        <b-progress-bar :value="balance.Income.amount - balance.Actual.amount" variant="success"></b-progress-bar>
+        <b-progress-bar striped :value="balance.Savings.amount" variant="info"></b-progress-bar>
+        <b-progress-bar :value="balance.Income.amount - balance.Actual.amount - balance.Savings.amount" variant="success"></b-progress-bar>
       </b-progress>
       <b-progress v-if="balance.Savings" class="mt-2 w-90" :max="balance.Income.amount" show-value>
-        <b-progress-bar :value="balance.Savings.amount" variant="info"></b-progress-bar>
+        <b-progress-bar :value="totalSavings" variant="info"></b-progress-bar>
       </b-progress>
     </div>
 
@@ -68,12 +69,20 @@
 <script>
 import MonthPicker from "./transactions/MonthPicker";
 import { mapGetters } from "vuex";
+import Api from '@/assets/Api'
 
 export default {
   name: "Balance",
   components: {
     MonthPicker
   },
+  /**
+   * @TODO move totalSavings to vuex
+   * generated only once from appContainer
+   */
+  props: [
+    'totalSavings'
+  ],
   mounted() {
     this.generateBalances();
   },
@@ -83,7 +92,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['monthData','getCategoryColor'])
+    ...mapGetters(['monthData','getCategoryColor']),
   },
   data() {
     return {

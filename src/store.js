@@ -51,7 +51,6 @@ export default new Vuex.Store({
     DELETE_TRANSACTION(state, link) {
       Api.deleteTransaction(link)
         .then(delete state.monthData[link[2]][link[3]])//local
-        
     },
     GENERATE_MONTH_DATA(state, date) {
       let year = date.split("-")[0];
