@@ -2,6 +2,7 @@ const express = require('express');
 const fetch = require('node-fetch');
 const cors = require('cors');
 const history = require('connect-history-api-fallback');
+const Generator = require('./framework/generator')
 
 const app = express();
 app.use(express.json());
@@ -25,6 +26,19 @@ app.put('/auth', async (req, res) => {
 
 })
 
+app.put('/savings/:collection', async (req, res) => {
+  
+  let response = '';
+  
+  await fetch(`https://vspend.firebaseio.com/${req.params.collection}.json`)
+    .then(res => res.json())
+    .then(data => response = data)
+  
+  let totalSavings = Generator.getTotalSavings(response);
+
+  res.status(200).send(JSON.stringify(totalSavings))
+})
+
 var port = process.env.PORT || 5000;
 app.listen(port);
-console.log('server started ' + port);
+console.log('server started on port: ' + port);

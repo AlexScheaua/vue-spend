@@ -10,8 +10,8 @@
       <div class="day-list d-flex flex-column-reverse" :key="day" v-for="(dayData, day) in monthData">
         <TransactionItem
           :key="id"
-          v-for="(transaction,id) in dayData"
-          :style="transaction.type === filterBy || filterBy === ''? '' : 'display: none !important'"
+          v-for="(transaction, id) in dayData"
+          :style="transaction.type === filterBy || transaction.category === filterBy || filterBy === '' ? '' : 'display: none !important'"
           :transaction="transaction"
           :id="id"
           :day="[day,date.split('-')[1],date.split('-')[0]]"
@@ -58,8 +58,8 @@ export default {
     MonthPicker
   },
   computed: {
-    ...mapGetters(["monthData"]),
-    ...mapState(["date"])
+    ...mapGetters(["monthData", "getCategories"]),
+    ...mapState(["date", "categories"])
   },
   data() {
     return {
@@ -70,13 +70,15 @@ export default {
         {text: 'Actual expenses', value: 'Actual'},
         {text: 'Planned expenses', value: 'Planned'},
         {text: 'Income', value: 'Income'},
-        {text: 'Savings', value: 'Savings'}
+        {text: 'Savings', value: 'Savings'},
       ]
     };
   },
   mounted() {
     this.scrollTopNow();
     this.transactionDate = this.date;
+
+    this.filterOptions.push(...this.categories);
   },
   watch: {
     monthData: function() {
