@@ -15,7 +15,7 @@
       </b-col>
     </b-row>
     <b-row class="mt-1">
-      <button @click="validateUser" class="btn btn-primary">Login</button>
+      <button @click="validateUser" class="btn btn-outline-dark">Login</button>
     </b-row>
   </b-container>
 </template>

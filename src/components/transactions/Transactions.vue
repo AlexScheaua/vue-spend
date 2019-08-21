@@ -58,7 +58,7 @@ export default {
     MonthPicker
   },
   computed: {
-    ...mapGetters(["monthData", "getCategories"]),
+    ...mapGetters(["monthData"]),
     ...mapState(["date", "categories"])
   },
   data() {
