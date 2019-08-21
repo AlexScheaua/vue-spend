@@ -83,27 +83,27 @@ export default {
   props: [
     'totalSavings'
   ],
-  mounted() {
-    this.generateBalances();
-  },
-  watch: {
-    monthData: function() {
-      this.generateBalances();
-    }
-  },
   computed: {
-<<<<<<< Updated upstream
-    ...mapGetters(['monthData','getCategoryColor']),
-=======
     ...mapGetters(['monthData','getCategoryColor','getCurrency'])
->>>>>>> Stashed changes
   },
   data() {
     return {
       balance: {}
     };
   },
+  watch: {
+    monthData: function() {
+      this.generateBalances();
+    }
+  },
+  mounted() {
+    this.balance = this.generateBalances();
+  },
   methods: {
+    /**
+     * generates the total per type and per category(for actual and planned expenses)
+     * @returns {object} the balance object with all the totals.
+     */
     generateBalances() {
       let balanceObject = {};
       for (let day in this.monthData) {
@@ -111,30 +111,19 @@ export default {
           let transactionData = this.monthData[day][transaction];
 
           if (!balanceObject[transactionData.type]) {
-            balanceObject[transactionData.type] = {
-              amount: parseInt(transactionData.amount)
-            };
+            balanceObject[transactionData.type] = {amount: parseInt(transactionData.amount)};
           } else {
-            balanceObject[transactionData.type].amount += parseInt(
-              transactionData.amount
-            );
+            balanceObject[transactionData.type].amount += parseInt(transactionData.amount);
           }
 
-          if (
-            transactionData.category &&
-            !balanceObject[transactionData.category]
-          ) {
-            balanceObject[transactionData.type][
-              transactionData.category
-            ] = parseInt(transactionData.amount);
+          if (transactionData.category && !balanceObject[transactionData.type][transactionData.category]) {
+            balanceObject[transactionData.type][transactionData.category] = parseInt(transactionData.amount);
           } else if (transactionData.category) {
-            balanceObject[transactionData.type][
-              transactionData.category
-            ] += parseInt(transactionData.amount);
+            balanceObject[transactionData.type][transactionData.category] += parseInt(transactionData.amount);
           }
         }
       }
-      this.balance = balanceObject;
+      return balanceObject;
     }
   }
 };
