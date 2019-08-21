@@ -29,10 +29,19 @@
     
     <b-modal id="filter-modal" title="Filter">
        <b-form-group label="Filter by">
-         <b-form-radio-group
+        <b-form-radio-group
+          id="select-type"
+          class="my-1 w-100"
+          :options="filterOptions"
+          v-model="filterType"
+          buttons
+          button-variant="outline-dark"
+          name="radios-btn-outline"
+        ></b-form-radio-group>
+        <b-form-radio-group
           id="filter-radios"
           v-model="filterBy"
-          :options="filterOptions"
+          :options="filterType === 'type' ? getTypes : filterType === 'category' ? getCategories : []"
           stacked
           name="radios-btn-default"
         ></b-form-radio-group>
@@ -58,33 +67,34 @@ export default {
     MonthPicker
   },
   computed: {
-    ...mapGetters(["monthData"]),
-    ...mapState(["date", "categories"])
+    ...mapGetters(["monthData","getCategories", "getTypes"]),
+    ...mapState(["date"])
   },
   data() {
     return {
       modalData: "",
+      filterType: '',
       filterBy: '',
       filterOptions: [
         {text: 'No Filter', value: ''},
-        {text: 'Actual expenses', value: 'Actual'},
-        {text: 'Planned expenses', value: 'Planned'},
-        {text: 'Income', value: 'Income'},
-        {text: 'Savings', value: 'Savings'},
-      ]
+        {text: 'Type options', value: 'type'},
+        {text: 'Category options', value: 'category'}
+      ],
+      
     };
   },
   mounted() {
     this.scrollTopNow();
     this.transactionDate = this.date;
-
-    this.filterOptions.push(...this.categories);
   },
   watch: {
     monthData: function() {
       setTimeout(() => {
         this.scrollTopNow();
       }, 200);
+    },
+    filterType: function() {
+      this.filterBy = '';
     }
   },
   methods: {

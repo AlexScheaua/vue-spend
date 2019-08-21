@@ -28,6 +28,12 @@ export default new Vuex.Store({
       { text: "Holidays", value: "holidays" },
       { text: "Health", value: "health" },
     ],
+    types: [
+      {text: 'Actual expenses', value: 'Actual'},
+      {text: 'Planned expenses', value: 'Planned'},
+      {text: 'Income', value: 'Income'},
+      {text: 'Savings', value: 'Savings'},
+    ],
     categoryColor: {
       Actual: "color: var(--danger)",
       Planned: "color: var(--warning)",
@@ -110,6 +116,9 @@ export default new Vuex.Store({
     },
     getCategories(state) {
       return state.categories;
+    },
+    getTypes(state){
+      return state.types;
     },
     getCurrency(state) {
       return state.currency
