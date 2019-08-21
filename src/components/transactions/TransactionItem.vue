@@ -10,7 +10,7 @@
       class="items-text justify-content-between"
     >
       <div class="px-3 d-flex flex-column align-items-center" >
-        <p class="amount m-0" :style="getCategoryColor[transaction.type]">{{transaction.amount}} Lei</p>
+        <p class="amount m-0" :style="getCategoryColor[transaction.type]">{{transaction.amount}} {{getCurrency}}</p>
         <p class="category m-0" >{{transaction.category || transaction.type}}</p>
       </div>
       <p class="note m-0 align-self-center">{{transaction.note}}</p>
@@ -25,7 +25,7 @@ export default {
   props: ["transaction","id","day"],
   
   computed: {
-    ...mapGetters(['getUserName','getUserColor','getCategoryColor'])
+    ...mapGetters(['getUserName','getUserColor','getCategoryColor','getCurrency'])
   },
   methods: {
   

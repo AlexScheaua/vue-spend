@@ -37,7 +37,8 @@ export default new Vuex.Store({
     userColor: {
       Andreea: "background: #680084bb",
       Alex: "background: #0041ffbb"
-    }
+    },
+    currency: localStorage.vSpendCurrency || 'Lei'
   },
   mutations: {
 
@@ -66,7 +67,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    authUser({commit}, credentials) {
+    authUser({ commit }, credentials) {
       return Api.authUser(credentials)
         .then((collection) => {
           this.state.user.name = credentials.name;
@@ -109,6 +110,9 @@ export default new Vuex.Store({
     },
     getCategories(state) {
       return state.categories;
+    },
+    getCurrency(state) {
+      return state.currency
     }
   }
 })

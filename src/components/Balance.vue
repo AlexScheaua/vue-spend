@@ -20,13 +20,13 @@
     <div v-if="balance.Income" class="category">
       <div class="d-flex justify-content-between">
         <span>Income:</span>
-        <span :style="getCategoryColor.Income">{{balance.Income.amount}} Lei</span>
+        <span :style="getCategoryColor.Income">{{balance.Income.amount}} {{getCurrency}}</span>
       </div>
     </div>
     <div v-if="balance.Actual" v-b-toggle.categ-clps class="category">
       <div class="d-flex justify-content-between">
         <span>+ Actual:</span>
-        <span :style="getCategoryColor.Actual">-{{balance.Actual.amount}} Lei</span>
+        <span :style="getCategoryColor.Actual">-{{balance.Actual.amount}} {{getCurrency}}</span>
       </div>
       <b-collapse id="categ-clps">
         <div
@@ -36,20 +36,20 @@
           :key="categ+price"
         >
           <span>{{categ}}:</span>
-          <span :style="getCategoryColor.Actual">-{{price}} Lei</span>
+          <span :style="getCategoryColor.Actual">-{{price}} {{getCurrency}}</span>
         </div>
       </b-collapse>
     </div>
     <div v-if="balance.Savings" class="category">
       <div class="d-flex justify-content-between">
         <span>Savings:</span>
-        <span :style="getCategoryColor.Savings">{{balance.Savings.amount}} Lei</span>
+        <span :style="getCategoryColor.Savings">{{balance.Savings.amount}} {{getCurrency}}</span>
       </div>
     </div>
     <div v-if="balance.Planned" v-b-toggle.planned-clps class="category">
       <div class="d-flex justify-content-between">
         <span>+ Planned:</span>
-        <span :style="getCategoryColor.Planned">{{balance.Planned.amount}} Lei</span>
+        <span :style="getCategoryColor.Planned">{{balance.Planned.amount}} {{getCurrency}}</span>
       </div>
       <b-collapse id="planned-clps">
         <div
@@ -59,7 +59,7 @@
           :key="categ+price"
         >
           <span>{{categ}}:</span>
-          <span :style="getCategoryColor.Planned">{{price}} Lei</span>
+          <span :style="getCategoryColor.Planned">{{price}} {{getCurrency}}</span>
         </div>
       </b-collapse>
     </div>
@@ -92,7 +92,11 @@ export default {
     }
   },
   computed: {
+<<<<<<< Updated upstream
     ...mapGetters(['monthData','getCategoryColor']),
+=======
+    ...mapGetters(['monthData','getCategoryColor','getCurrency'])
+>>>>>>> Stashed changes
   },
   data() {
     return {
