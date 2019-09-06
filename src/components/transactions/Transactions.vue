@@ -3,14 +3,14 @@
     <div class="w-100 d-flex justify-content-center">
       <MonthPicker />
       <div class="filter d-flex justify-content-center align-items-center">
-        <font-awesome-icon icon="filter" v-b-modal.filter-modal class="filter-icon"/>
+        <font-awesome-icon icon="filter" v-b-modal.filter-modal class="filter-icon" />
       </div>
     </div>
     <div class="w-100 d-flex flex-column-reverse">
-      <div class="day-list d-flex flex-column-reverse" :key="day" v-for="(dayData, day) in monthData">
+      <div class="day-list d-flex flex-column-reverse" :key="day" v-for="day in sortedMonth()">
         <TransactionItem
           :key="id"
-          v-for="(transaction, id) in dayData"
+          v-for="(transaction, id) in monthData[day]"
           :style="transaction.type === filterBy || transaction.category === filterBy || filterBy === '' ? '' : 'display: none !important'"
           :transaction="transaction"
           :id="id"
@@ -26,9 +26,9 @@
       <h2 class="text-center text-secondary">No data this month</h2>
     </div>
     <EditModal :transaction="this.modalData" />
-    
+
     <b-modal id="filter-modal" title="Filter">
-       <b-form-group label="Filter by">
+      <b-form-group label="Filter by">
         <b-form-radio-group
           id="select-type"
           class="my-1 w-100"
@@ -103,6 +103,13 @@ export default {
     },
     setModalData(data) {
       this.modalData = data;
+    },
+    sortedMonth(){
+      if(this.monthData){
+        return Object.keys(this.monthData).sort();
+      } else {
+        return [];
+      }
     }
   }
 };
