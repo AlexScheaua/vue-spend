@@ -84,20 +84,10 @@ export default {
     'totalSavings'
   ],
   computed: {
-    ...mapGetters(['monthData','getCategoryColor','getCurrency'])
-  },
-  data() {
-    return {
-      balance: {}
-    };
-  },
-  watch: {
-    monthData: function() {
-      this.generateBalances();
+    ...mapGetters(['monthData','getCategoryColor','getCurrency']),
+    balance: function() {
+      return this.generateBalances();
     }
-  },
-  mounted() {
-    this.balance = this.generateBalances();
   },
   methods: {
     /**
@@ -105,7 +95,20 @@ export default {
      * @returns {object} the balance object with all the totals.
      */
     generateBalances() {
-      let balanceObject = {};
+      let balanceObject = {
+        Actual:{
+          amount: 0,
+        },
+        Planned:{
+          amount: 0,
+        },
+        Income:{
+          amount: 0,
+        },
+        Savings:{
+          amount: 0
+        },
+      };
       for (let day in this.monthData) {
         for (let transaction in this.monthData[day]) {
           let transactionData = this.monthData[day][transaction];

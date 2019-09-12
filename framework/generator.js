@@ -1,6 +1,6 @@
 let Generator = {
     getTotalSavings: (data) => {
-        totalSavings = 0;
+        let totalSavings = 0;
 
         for(let year in data){
             for(let month in data[year]){
@@ -17,6 +17,5 @@ let Generator = {
 
         return totalSavings;
     }
-}
-
+};
 module.exports = Generator;

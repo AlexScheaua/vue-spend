@@ -21,10 +21,10 @@ app.put('/auth', async (req, res) => {
       } else {
         response = false;
       }
-    })
+    });
   res.status(200).send(JSON.stringify(response));
 
-})
+});
 
 app.put('/savings/:collection', async (req, res) => {
   
@@ -32,13 +32,13 @@ app.put('/savings/:collection', async (req, res) => {
   
   await fetch(`https://vspend.firebaseio.com/${req.params.collection}.json`)
     .then(res => res.json())
-    .then(data => response = data)
+    .then(data => response = data);
   
   let totalSavings = Generator.getTotalSavings(response);
 
   res.status(200).send(JSON.stringify(totalSavings))
-})
+});
 
-var port = process.env.PORT || 5000;
+let port = process.env.PORT || 5000;
 app.listen(port);
 console.log('server started on port: ' + port);
