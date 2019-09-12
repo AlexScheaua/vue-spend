@@ -34,12 +34,16 @@ export default {
       this.$router.push({ name: "login" });
     };
     /**
-     * @TODO add this to vuex
+     * @todo add this to vuex
      */
     Api.getTotalSavings()
       .then(data => this.totalSavings = data)
   },
   methods: {
+    /**
+     * @todo add settings page on name click
+     * for now it should allow user to logout and change currency
+     */
     changeComponent(component) {
       this.currentComponent = component;
     }
@@ -58,9 +62,11 @@ export default {
   height: 40px;
 }
 .content {
-  /* height: 85vh;
+  /** IOS ISSUES
+  height: 85vh;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch; */
+
   background: #eeeeee55;
 }
 
