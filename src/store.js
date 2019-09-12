@@ -70,35 +70,41 @@ export default new Vuex.Store({
     },
     SET_DATE(state, data) {
       state.date = data;
+    },
+    SET_CURRENCY(state, data){
+      state.currency = data;
     }
   },
   actions: {
     authUser({ commit }, credentials) {
-      return Api.authUser(credentials)
-        .then((collection) => {
-          this.state.user.name = credentials.name;
-          this.state.user.collection = collection;
-          return collection;
-        })
+      // return Api.authUser(credentials)
+      //   .then((collection) => {
+      //     this.state.user.name = credentials.name;
+      //     this.state.user.collection = collection;
+      //     return collection;
+      //   })
       // DEV
-      // this.state.user.name = credentials.name;
-      // this.state.user.collection = 'alex_andre';
-      // return this.state.user.collection;
+      this.state.user.name = credentials.name;
+      this.state.user.collection = 'alex_andre';
+      return this.state.user.collection;
     },
     setNewTransaction({ commit }, data) {
-      commit('SET_NEW_TRANSACTION', data)
+      commit('SET_NEW_TRANSACTION', data);
     },
     editTransaction({ commit }, link, data) {
-      commit('EDIT_TRANSACTION', link, data)
+      commit('EDIT_TRANSACTION', link, data);
     },
     deleteTransaction({ commit }, link) {
-      commit('DELETE_TRANSACTION', link)
+      commit('DELETE_TRANSACTION', link);
     },
     generateMonthData({ commit }, data) {
-      commit('GENERATE_MONTH_DATA', data)
+      commit('GENERATE_MONTH_DATA', data);
     },
     setDate({ commit }, data) {
-      commit('SET_DATE', data)
+      commit('SET_DATE', data);
+    },
+    setCurrency({commit}, data) {
+      commit('SET_CURRENCY', data);
     }
   },
   getters: {

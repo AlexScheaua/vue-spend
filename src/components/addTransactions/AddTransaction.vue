@@ -1,5 +1,5 @@
 <template>
-  <b-form class="d-flex flex-column align-items-center" @submit.prevent="clickHandler">
+  <b-form class="d-flex py-2 flex-column align-items-center" @submit.prevent="clickHandler">
     <!-- Select Type -->
     <b-form-radio-group
       id="btn-radios-1"

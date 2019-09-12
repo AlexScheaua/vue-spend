@@ -1,10 +1,8 @@
 <template>
   <div ref="content" class="content d-flex align-items-center flex-column">
-    <div class="w-100 d-flex justify-content-center">
+    <div class="w-100 d-flex py-2 justify-content-around align-items-center">
       <MonthPicker />
-      <div class="filter d-flex justify-content-center align-items-center">
-        <font-awesome-icon icon="filter" v-b-modal.filter-modal class="filter-icon" />
-      </div>
+      <font-awesome-icon icon="filter" v-b-modal.filter-modal class="filter-icon" />
     </div>
     <div class="w-100 d-flex flex-column-reverse">
       <div class="day-list d-flex flex-column-reverse" :key="day" v-for="day in sortedMonth()">
@@ -47,7 +45,7 @@
         ></b-form-radio-group>
       </b-form-group>
       <template slot="modal-footer" slot-scope="{ ok }">
-        <b-button variant="outline-dark" @click="ok();">ok</b-button>
+        <b-button variant="outline-dark" @click="ok()">ok</b-button>
       </template>
     </b-modal>
   </div>
@@ -120,19 +118,15 @@ export default {
   border-radius: 10px;
 }
 
-.filter {
-  height: 60px;
-  width: 60px;
-}
-
 .filter-icon {
   padding: 10px;
-  width: 43px;
-  height: 43px;
+  width: 43.5px;
+  height: 43.5px;
   border-radius: 3px;
   background: #fff;
   border: 1px solid #e0e0e0; 
 }
+
 .filter-icon:hover {
   background: #ddd;
 }

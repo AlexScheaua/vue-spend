@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column align-items-center">
+  <div class="d-flex py-2 flex-column align-items-center">
     <MonthPicker />
 
     <div v-if="!monthData" class="w-100">
