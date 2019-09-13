@@ -1,17 +1,15 @@
 <template>
   <div ref="content" class="content d-flex align-items-center flex-column">
-    <div class="w-100 d-flex justify-content-center">
+    <div class="w-100 d-flex py-2 justify-content-around align-items-center">
       <MonthPicker />
-      <div class="filter d-flex justify-content-center align-items-center">
-        <font-awesome-icon icon="filter" v-b-modal.filter-modal class="filter-icon" />
-      </div>
+      <font-awesome-icon icon="filter" v-b-modal.filter-modal class="filter-icon" />
     </div>
     <div class="w-100 d-flex flex-column-reverse">
       <div class="day-list d-flex flex-column-reverse" :key="day" v-for="day in sortedMonth()">
         <TransactionItem
           :key="id"
           v-for="(transaction, id) in monthData[day]"
-          :style="transaction.type === filterBy || transaction.category === filterBy || filterBy === '' ? '' : 'display: none !important'"
+          :style="filterTransactions(transaction)"
           :transaction="transaction"
           :id="id"
           :day="[day,date.split('-')[1],date.split('-')[0]]"
@@ -41,13 +39,13 @@
         <b-form-radio-group
           id="filter-radios"
           v-model="filterBy"
-          :options="filterType === 'type' ? getTypes : filterType === 'category' ? getCategories : []"
+          :options="showFilterOptions()"
           stacked
           name="radios-btn-default"
         ></b-form-radio-group>
       </b-form-group>
       <template slot="modal-footer" slot-scope="{ ok }">
-        <b-button variant="outline-dark" @click="ok();">ok</b-button>
+        <b-button variant="outline-dark" @click="ok()">ok</b-button>
       </template>
     </b-modal>
   </div>
@@ -57,7 +55,7 @@
 import TransactionItem from "./TransactionItem";
 import MonthPicker from "./MonthPicker";
 import EditModal from "./EditModal";
-import { mapActions, mapGetters, mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
 
 export default {
   name: "Transactions",
@@ -85,7 +83,6 @@ export default {
   },
   mounted() {
     this.scrollTopNow();
-    this.transactionDate = this.date;
   },
   watch: {
     monthData: function() {
@@ -98,6 +95,22 @@ export default {
     }
   },
   methods: {
+    filterTransactions(transaction){
+       if(transaction.type === this.filterBy || transaction.category === this.filterBy || this.filterBy === '') {
+         return '';
+       }else {
+         return 'display: none !important';
+       }
+    },
+    showFilterOptions(){
+      if(this.filterType === 'type'){
+        return this.getTypes;
+      } else if(this.filterType === 'category') {
+        return this.getCategories;
+      } else {
+        return [];
+      }
+    },
     scrollTopNow(id) {
       this.$refs.content.scrollTop = 0;
     },
@@ -120,19 +133,15 @@ export default {
   border-radius: 10px;
 }
 
-.filter {
-  height: 60px;
-  width: 60px;
-}
-
 .filter-icon {
   padding: 10px;
-  width: 43px;
-  height: 43px;
+  width: 43.5px;
+  height: 43.5px;
   border-radius: 3px;
   background: #fff;
   border: 1px solid #e0e0e0; 
 }
+
 .filter-icon:hover {
   background: #ddd;
 }

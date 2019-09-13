@@ -3,6 +3,9 @@
     fluid
     class="login-container d-flex flex-column justify-content-center align-items-center"
   >
+    <div class="mb-5 d-flex">
+      <span class="title-v">V</span><span class="title-spend">SPEND</span>
+    </div>
     <b-row class="mb-1">
       <b-col cols="12">
         <b-form-input v-model="credentials.name" :state='login' placeholder="Enter your name"></b-form-input>
@@ -74,5 +77,27 @@ export default {
   background: #eee;
 }
 
+  .title-v, .title-spend {
+    font-size: 1.5rem;
+    letter-spacing: 15px;
+    background: transparent;
+  }
+
+  .title-v {
+    font-weight: 600;
+    padding-left: 15px;
+    padding-top: 2px;
+    color: var(--light);
+    background: var(--dark);
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+
+ .title-spend {
+   padding-left: 15px ;
+   border: 2px solid var(--dark);
+   border-bottom-right-radius: 5px;
+   border-top-right-radius: 5px;
+ }
 
 </style>
