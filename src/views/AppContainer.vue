@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="top-header mt-2 mx-3 d-flex justify-content-between align-items-center">
+      <p class="text-dark">{{getUserName}}</p>
       <div class="d-flex">
         <span class="title-v">V</span><span class="title-spend">SPEND</span>
       </div>
-      <p class="text-dark">{{getUserName}}</p>
       <button v-b-modal.settings-modal class="settings-icon"><font-awesome-icon icon="cog" /></button>
     </div>
     <AppHeader @changeComponent="changeComponent" />
@@ -45,9 +45,6 @@ export default {
     if (!this.getUserName) {
       this.$router.push({ name: "login" });
     }
-    /**
-     * @todo add this to vuex
-     */
     Api.getTotalSavings()
       .then(data => this.totalSavings = data)
   },

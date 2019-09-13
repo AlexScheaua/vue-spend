@@ -77,16 +77,16 @@ export default new Vuex.Store({
   },
   actions: {
     authUser({ commit }, credentials) {
-      // return Api.authUser(credentials)
-      //   .then((collection) => {
-      //     this.state.user.name = credentials.name;
-      //     this.state.user.collection = collection;
-      //     return collection;
-      //   })
+      return Api.authUser(credentials)
+        .then((collection) => {
+          this.state.user.name = credentials.name;
+          this.state.user.collection = collection;
+          return collection;
+        })
       // DEV
-      this.state.user.name = credentials.name;
-      this.state.user.collection = 'alex_andre';
-      return this.state.user.collection;
+      // this.state.user.name = credentials.name;
+      // this.state.user.collection = 'alex_andre';
+      // return this.state.user.collection;
     },
     setNewTransaction({ commit }, data) {
       commit('SET_NEW_TRANSACTION', data);

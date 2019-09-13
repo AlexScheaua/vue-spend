@@ -9,7 +9,7 @@
         <TransactionItem
           :key="id"
           v-for="(transaction, id) in monthData[day]"
-          :style="transaction.type === filterBy || transaction.category === filterBy || filterBy === '' ? '' : 'display: none !important'"
+          :style="filterTransactions(transaction)"
           :transaction="transaction"
           :id="id"
           :day="[day,date.split('-')[1],date.split('-')[0]]"
@@ -39,7 +39,7 @@
         <b-form-radio-group
           id="filter-radios"
           v-model="filterBy"
-          :options="filterType === 'type' ? getTypes : filterType === 'category' ? getCategories : []"
+          :options="showFilterOptions()"
           stacked
           name="radios-btn-default"
         ></b-form-radio-group>
@@ -55,7 +55,7 @@
 import TransactionItem from "./TransactionItem";
 import MonthPicker from "./MonthPicker";
 import EditModal from "./EditModal";
-import { mapActions, mapGetters, mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
 
 export default {
   name: "Transactions",
@@ -83,7 +83,6 @@ export default {
   },
   mounted() {
     this.scrollTopNow();
-    this.transactionDate = this.date;
   },
   watch: {
     monthData: function() {
@@ -96,6 +95,22 @@ export default {
     }
   },
   methods: {
+    filterTransactions(transaction){
+       if(transaction.type === this.filterBy || transaction.category === this.filterBy || this.filterBy === '') {
+         return '';
+       }else {
+         return 'display: none !important';
+       }
+    },
+    showFilterOptions(){
+      if(this.filterType === 'type'){
+        return this.getTypes;
+      } else if(this.filterType === 'category') {
+        return this.getCategories;
+      } else {
+        return [];
+      }
+    },
     scrollTopNow(id) {
       this.$refs.content.scrollTop = 0;
     },
