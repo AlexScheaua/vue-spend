@@ -1,0 +1,36 @@
+{
+  "name": "V-Spend",
+  "short_name": "V-Spend",
+  "icons": [
+    {
+      "src": "./img/image2vector 96.png",
+      "sizes": "96X96",
+      "type": "image/png"
+    },
+    {
+      "src": "./img/image2vector 120.png",
+      "sizes": "120X120",
+      "type": "image/png"
+    },
+    {
+      "src": "./img/image2vector 180.png",
+      "sizes": "180X180",
+      "type": "image/png"
+    },
+    {
+      "src": "./img/image2vector 192.png",
+      "sizes": "192X192",
+      "type": "image/png"
+    },
+    {
+      "src": "./img/image2vector 512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./login",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#343a40",
+  "orientation": "portrait-primary"
+}

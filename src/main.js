@@ -10,10 +10,11 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import './registerServiceWorker'
 
 Vue.use(BootstrapVue)
 library.add(faBalanceScaleRight, faClipboard, faNotesMedical, faTrashAlt, faCheck, faFilter, faCog);
- 
+
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.config.productionTip = false;
 
