@@ -6,7 +6,7 @@ module.exports = {
             navigateFallback: '/',
             runtimeCaching: [
                 {
-                    urlPattern: new RegExp('^(http)'),
+                    urlPattern: new RegExp('^http'),
                     handler: 'staleWhileRevalidate',
                     options: {
                         cacheName: 'vspend-cache',

@@ -1,10 +1,14 @@
+const forceSecure = require("force-secure-express");
 const express = require('express');
 const fetch = require('node-fetch');
 const cors = require('cors');
 const history = require('connect-history-api-fallback');
-const Generator = require('./framework/generator')
+const Generator = require('./framework/generator');
 
 const app = express();
+app.use(forceSecure([
+    'vspend.herokuapp.com'
+]));
 app.use(express.json());
 app.use(cors());
 app.use(history());
