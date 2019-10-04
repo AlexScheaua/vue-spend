@@ -23,6 +23,7 @@ export default {
       body: ''
     })
     .then(res => res.json())
+    .catch(err => console.log(err, 'You are offline...'))
   },
 
   getMonth(year, month) {
