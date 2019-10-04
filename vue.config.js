@@ -3,7 +3,7 @@ module.exports = {
         themeColor: '#343a40',
         workboxPluginMode: 'GenerateSW',
         workboxOptions: {
-            navigateFallback: '/',
+            navigateFallback: '/index.html',
             runtimeCaching: [
                 {
                     urlPattern: new RegExp('^http'),

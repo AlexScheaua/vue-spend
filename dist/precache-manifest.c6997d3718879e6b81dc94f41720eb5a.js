@@ -29,15 +29,15 @@ self.__precacheManifest = [
   },
   {
     "revision": "e8625fbc8e2241ade3a852a59202e863",
-    "url": "/img/image2vector 96.png"
-  },
-  {
-    "revision": "e8625fbc8e2241ade3a852a59202e863",
     "url": "/img/image2vector 192.png"
   },
   {
     "revision": "e8625fbc8e2241ade3a852a59202e863",
     "url": "/img/image2vector 512.png"
+  },
+  {
+    "revision": "e8625fbc8e2241ade3a852a59202e863",
+    "url": "/img/image2vector 96.png"
   },
   {
     "revision": "9ca045a3b66b8ea06ac0",
