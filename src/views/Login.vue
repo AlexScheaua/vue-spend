@@ -3,12 +3,19 @@
     fluid
     class="login-container d-flex flex-column justify-content-center align-items-center"
   >
+    <b-alert v-model="alert.isAlert" variant="dark" class="offline-alert" fade dismissible>
+      {{alert.errorMessage}}
+    </b-alert>
     <div class="mb-5 d-flex">
       <span class="title-v">V</span><span class="title-spend">SPEND</span>
     </div>
     <b-row class="mb-1">
       <b-col cols="12">
-        <b-form-input v-model="credentials.name" :state='login' placeholder="Enter your name"></b-form-input>
+        <b-form-input
+          v-model="credentials.name"
+          :state='login'
+          placeholder="Enter your name"
+        ></b-form-input>
         <b-form-input
           v-model="credentials.collection"
           type="password"
@@ -38,7 +45,11 @@ export default {
         name: "",
         collection: ""
       },
-      login: ''
+      login: '',
+      alert: {
+        errorMessage: '',
+        isAlert: false
+      }
     };
   },
   created() {
@@ -53,16 +64,25 @@ export default {
     validateUser() {
       if (this.credentials.name !== "" && this.credentials.collection !== "") {
         this.authUser(this.credentials)
+        .catch(err => {
+          console.log(err);
+          this.alert.errorMessage = 'No internet connection...';
+          this.alert.isAlert = true;
+        })
         .then(collection => {
-          if (collection) {
+          //if collection means that login was successfully, else username or password is wrong
+          if(collection === 'wrong credentials'){
+            this.alert.errorMessage = 'Username or Password wrong...';
+            this.alert.isAlert = true;
+          } else if (collection) {
             this.login = true;
 
             this.generateMonthData(this.date);
             this.$router.push({ name: "app" });
             localStorage.setItem("vSpendUserName", this.credentials.name);
             localStorage.setItem("vSpendCollection",this.credentials.collection);
-          } 
-        });
+          }
+        })
       } else {
         this.login = false;
       }
@@ -76,6 +96,12 @@ export default {
   height: 100vh;
   background: #eee;
 }
+  .offline-alert {
+    position: absolute;
+    top: 20px;
+    margin: 0 auto;
+    width: 90%;
+  }
 
   .title-v, .title-spend {
     font-size: 1.5rem;

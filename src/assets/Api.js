@@ -1,6 +1,6 @@
 export default {
   url: 'https://vspend.firebaseio.com',
-  collection: 'alex_andre',
+  collection: '',
 
   authUser(credentials){
     return fetch('/auth', {

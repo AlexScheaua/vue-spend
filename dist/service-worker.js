@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.60560d9588d2d53e855dc43323d88d40.js"
+  "/precache-manifest.f23a3d41767723a84254822eca427f8d.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "vue-spend"});
@@ -30,4 +30,4 @@ workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
 workbox.routing.registerNavigationRoute("/");
 
-workbox.routing.registerRoute(/^(http)/, workbox.strategies.staleWhileRevalidate({ "cacheName":"vspend-cache", plugins: [new workbox.cacheableResponse.Plugin({"statuses":[0,200]})] }), 'GET');
+workbox.routing.registerRoute(/^http/, workbox.strategies.staleWhileRevalidate({ "cacheName":"vspend-cache", plugins: [new workbox.cacheableResponse.Plugin({"statuses":[0,200]})] }), 'GET');
