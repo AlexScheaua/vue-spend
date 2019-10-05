@@ -6,7 +6,7 @@ module.exports = {
             navigateFallback: '/index.html',
             runtimeCaching: [
                 {
-                    urlPattern: new RegExp('^http'),
+                    urlPattern: new RegExp('^https://vspend.herokuapp.com'),
                     handler: 'staleWhileRevalidate',
                     options: {
                         cacheName: 'vspend-cache',

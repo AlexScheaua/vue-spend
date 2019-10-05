@@ -1,4 +1,5 @@
 const forceSecure = require("force-secure-express");
+const compression = require('compression');
 const express = require('express');
 const fetch = require('node-fetch');
 const cors = require('cors');
@@ -9,6 +10,7 @@ const app = express();
 app.use(forceSecure([
     'vspend.herokuapp.com'
 ]));
+app.use(compression());
 app.use(express.json());
 app.use(cors());
 app.use(history());
