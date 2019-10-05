@@ -45,18 +45,11 @@
             if (!this.getUserName) {
                 this.$router.push({ name: "login" });
             }
-            console.log(Api.collection);
 
             if(Api.collection) {
                 Api.getTotalSavings()
                 .then(data => this.totalSavings = data);
             }
-            // } else {
-            //     setTimeout(() => {
-            //         this.getTotalSavings()
-            //     }, 300);
-            // }
-
         },
         methods: {
             /**
