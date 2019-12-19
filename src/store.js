@@ -42,7 +42,9 @@ export default new Vuex.Store({
     },
     userColor: {
       Andreea: "background: #680084bb",
-      Alex: "background: #0041ffbb"
+      Alex: "background: #0041ffbb",
+      Geo: "background: #0041ffbb",
+      Ionel: "background: #ff00ffbb"
     },
     currency: localStorage.vSpendCurrency || 'Lei'
   },
@@ -62,7 +64,6 @@ export default new Vuex.Store({
     GENERATE_MONTH_DATA(state, date) {
       let year = date.split("-")[0];
       let month = date.split("-")[1];
-      
       Api.getMonth(year, month)
         .then(data => state.monthData = data);
       // DEV
@@ -85,7 +86,7 @@ export default new Vuex.Store({
         })
       // DEV
       // this.state.user.name = credentials.name;
-      // this.state.user.collection = 'alex_andre';
+      // this.state.user.collection = 'ione_geo';
       // return this.state.user.collection;
     },
     setNewTransaction({ commit }, data) {
