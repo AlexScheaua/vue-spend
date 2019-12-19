@@ -4,9 +4,9 @@
     class="item my-05"
     @click="$emit('modal',[transaction,id,day])"
   >
-    <div class="user-color" :style="getUserColor[transaction.user]" ></div>
+    <div class="user-color" :style="iconColorClass(transaction.user)" ></div>
     <div
-      :class="transaction.user === getUserName ? 'd-flex flex-row-reverse' : 'd-flex'"
+      :class="iconLocationClass(transaction.user)"
       class="items-text justify-content-between"
     >
       <div class="px-3 d-flex flex-column align-items-center" >
@@ -23,12 +23,17 @@ import { mapGetters } from "vuex";
 export default {
   name: "TransactionItem",
   props: ["transaction","id","day"],
-  
   computed: {
     ...mapGetters(['getUserName','getUserColor','getCategoryColor','getCurrency'])
   },
   methods: {
-  
+    iconColorClass(user){
+      console.log(this.getUserColor[user]);
+      return this.getUserColor[user];
+    },
+    iconLocationClass(user){
+      return user === this.getUserName ? 'd-flex flex-row-reverse' : 'd-flex';
+    }
   }
 };
 </script>

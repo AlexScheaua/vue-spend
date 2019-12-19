@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.b3e79a360e0684b6010a1524d5ee590e.js"
+  "/precache-manifest.f35f3148070e5e81cca3c6ae32809af2.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "vue-spend"});
